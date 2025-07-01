@@ -11,6 +11,7 @@ public record HireEmployeeRequest(
 		String firstName,
 		String lastName,
 		String email,
+		int birthYear,
 		String iban,
 		double salary,
 		FiatCurrency currency,
