@@ -15,4 +15,6 @@ public @interface Entity {
 
 	String identity();
 
+	boolean aggregate() default false;
+
 }
