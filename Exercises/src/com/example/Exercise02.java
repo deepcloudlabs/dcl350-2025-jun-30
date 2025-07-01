@@ -2,6 +2,7 @@ package com.example;
 
 public class Exercise02 {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		for (var jobStyle : JobStyle.values())
 			System.out.println("%s: %d".formatted(jobStyle.name(),jobStyle.ordinal()));
