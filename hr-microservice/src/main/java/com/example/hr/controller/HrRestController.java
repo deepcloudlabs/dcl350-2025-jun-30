@@ -1,6 +1,5 @@
 package com.example.hr.controller;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -19,6 +16,7 @@ import com.example.hr.dto.request.HireEmployeeRequest;
 import com.example.hr.dto.response.EmployeeResponse;
 import com.example.hr.dto.response.HireEmployeeResponse;
 import com.example.hr.service.HrService;
+import com.example.validation.TcKimlikNo;
 
 @RestController // Meta-Annotation
 @RequestScope
@@ -36,17 +34,17 @@ public class HrRestController {
 
 	// GET http://localhost:7100/hr/api/v1/employees/11111111110
 	@GetMapping("{identityNo}")
-	public EmployeeResponse getEmployeeInformation(@PathVariable String identityNo) {
+	public EmployeeResponse getEmployeeInformation(@PathVariable @TcKimlikNo String identityNo) {
 		return hrService.findEmployeeById(identityNo);
 	}
 
 	@PostMapping
-	public HireEmployeeResponse hireEmployee(@RequestBody HireEmployeeRequest request) {
+	public HireEmployeeResponse hireEmployee(@RequestBody @Validated HireEmployeeRequest request) {
 		return hrService.hireEmployee(request);
 	}
 
 	@DeleteMapping(value="{identityNo}")
-	public EmployeeResponse fireEmployee(@PathVariable String identityNo) {
+	public EmployeeResponse fireEmployee(@PathVariable @Validated String identityNo) {
 		return hrService.fireEmployee(identityNo);
 	}
 	
