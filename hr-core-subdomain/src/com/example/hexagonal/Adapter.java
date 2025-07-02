@@ -12,4 +12,8 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 public @interface Adapter {
 
+	Class<?> to() default Object.class;
+
+	Class<?> using() default Object.class;
+
 }

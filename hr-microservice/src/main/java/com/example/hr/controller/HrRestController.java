@@ -23,7 +23,7 @@ import com.example.validation.TcKimlikNo;
 @RequestMapping("/employees")
 @CrossOrigin
 @Validated
-@Adapter
+@Adapter(using = HrService.class)
 public class HrRestController {
 	private final HrService hrService;
 
@@ -43,9 +43,9 @@ public class HrRestController {
 		return hrService.hireEmployee(request);
 	}
 
-	@DeleteMapping(value="{identityNo}")
+	@DeleteMapping(value = "{identityNo}")
 	public EmployeeResponse fireEmployee(@PathVariable @Validated String identityNo) {
 		return hrService.fireEmployee(identityNo);
 	}
-	
+
 }
