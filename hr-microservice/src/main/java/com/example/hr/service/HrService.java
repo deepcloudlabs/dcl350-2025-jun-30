@@ -8,6 +8,7 @@ import com.example.hr.application.HrApplication;
 import com.example.hr.domain.Employee;
 import com.example.hr.domain.TcKimlikNo;
 import com.example.hr.dto.request.HireEmployeeRequest;
+import com.example.hr.dto.response.EmployeeQLResponse;
 import com.example.hr.dto.response.EmployeeResponse;
 import com.example.hr.dto.response.HireEmployeeResponse;
 
@@ -39,6 +40,12 @@ public class HrService {
 		var firedEmployee = hrApplication.fireEmployee(TcKimlikNo.valueOf(identityNo))
 				.orElseThrow(() -> new IllegalArgumentException("Cannot find employee to fire: %s".formatted(identityNo)));
 		return modelMapper.map(firedEmployee, EmployeeResponse.class);
+	}
+
+	public EmployeeQLResponse getEmployeeById(String identity) {
+		var employee = hrApplication.getEmployeeInformation(TcKimlikNo.valueOf(identity))
+				.orElseThrow(() -> new IllegalArgumentException("Cannot find employee with the given identity no: %s".formatted(identity)));
+		return modelMapper.map(employee, EmployeeQLResponse.class);
 	}
 
 }

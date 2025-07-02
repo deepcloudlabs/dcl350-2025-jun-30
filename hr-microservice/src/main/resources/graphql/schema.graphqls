@@ -1,0 +1,17 @@
+type Query {
+	employeeById(identity: ID): EmployeeQLResponse
+}
+
+type EmployeeQLResponse {
+		identity: ID
+		firstName: String
+		lastName: String
+		email: String
+		iban: String
+		salary: Float
+		currency: String
+		jobStyle: String
+		departments: [String]
+		birthYear: Int
+		photo: String	
+}
