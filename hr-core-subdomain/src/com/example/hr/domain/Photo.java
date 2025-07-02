@@ -24,6 +24,10 @@ public final class Photo {
 		return new Photo(Base64.getDecoder().decode(base64Values));
 	}
 
+	public byte[] getValues() {
+		return values;
+	}
+
 	public String toBase64() {
 		return Base64.getEncoder().encodeToString(values);
 	}

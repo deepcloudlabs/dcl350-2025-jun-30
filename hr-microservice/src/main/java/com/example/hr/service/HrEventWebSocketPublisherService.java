@@ -17,7 +17,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
-public class HrEventWebSocketPublisherService implements WebSocketHandler{
+public class HrEventWebSocketPublisherService implements WebSocketHandler {
 	private final Map<String,WebSocketSession> sessions = new ConcurrentHashMap<>();
 	private final ObjectMapper objectMapper;
 	

@@ -77,7 +77,9 @@ public class ModelMapperConfig {
 				entity.setSalary(employee.getSalary().value());
 				entity.setCurrency(employee.getSalary().currency()); 
 				entity.setJobStyle(employee.getJobStyle());
+				entity.setBirthYear(employee.getBirthYear().value());
 				entity.setDepartments(employee.getDepartments().getDepartments());
+				entity.setPhoto(employee.getPhoto().getValues());
 				return entity;		
 			};		
 			
