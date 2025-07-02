@@ -10,14 +10,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Exercise04 {
 
-private static final String HR_WS_API = "ws://localhost:4100/hr/api/v1/hr-events";
+private static final String HR_WS_API = "ws://localhost:7100/hr/api/v1/hr-events";
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		var listener = new HrWebSocketListener();
 		HttpClient.newHttpClient()
 			      .newWebSocketBuilder()
 				  .buildAsync(URI.create(HR_WS_API), listener);
-		TimeUnit.SECONDS.sleep(30);
+		TimeUnit.MINUTES.sleep(5);
 	}
 
 }
