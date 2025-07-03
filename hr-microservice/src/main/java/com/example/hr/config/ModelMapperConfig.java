@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.hr.document.EmployeeDocument;
 import com.example.hr.domain.Employee;
 import com.example.hr.dto.request.HireEmployeeRequest;
 import com.example.hr.dto.response.EmployeeQLResponse;
@@ -99,7 +100,42 @@ public class ModelMapperConfig {
 					.photo(entity.getPhoto())
 					.build();			  
 			  };
-				
+
+	
+	private static final Converter<Employee,EmployeeDocument> Employee2EmployeeDocumentConverter = 
+			context -> {
+				var employee = context.getSource();
+				var entity = new EmployeeDocument();
+				entity.setIdentity(employee.getIdentity().getValue()); 
+				entity.setFirstName(employee.getFullName().firstName());
+				entity.setLastName(employee.getFullName().lastName());
+				entity.setEmail(employee.getEmail().value());
+				entity.setIban(employee.getIban().getValue()); 
+				entity.setSalary(employee.getSalary().value());
+				entity.setCurrency(employee.getSalary().currency()); 
+				entity.setJobStyle(employee.getJobStyle());
+				entity.setBirthYear(employee.getBirthYear().value());
+				entity.setDepartments(employee.getDepartments().getDepartments());
+				entity.setPhoto(employee.getPhoto().toBase64());
+				return entity;		
+			};		
+			
+	private static final Converter<EmployeeDocument,Employee> EmployeeDocument2EmployeeConverter =
+			  context -> {
+				  var document = context.getSource();
+				  return new Employee.Builder()
+					.identity(document.getIdentity())
+					.fullName(document.getFirstName(), document.getLastName())
+					.birthYear(document.getBirthYear())
+					.departments(document.getDepartments())
+					.jobStyle(document.getJobStyle())	
+					.salary(document.getSalary(), document.getCurrency())
+					.email(document.getEmail())
+					.iban(document.getIban())
+					.photo(document.getPhoto())
+					.build();			  
+			  };			  
+			  
 	private static final Converter<Employee,EmployeeQLResponse> Employee2EmployeeQLResponseConverter = 
 			context -> {
 				var employee = context.getSource();
@@ -126,6 +162,8 @@ public class ModelMapperConfig {
 		modelMapper.addConverter(Employee2HireEmployeeResponseConverter, Employee.class, HireEmployeeResponse.class);
 		modelMapper.addConverter(Employee2EmployeeEntityConverter, Employee.class, EmployeeEntity.class);
 		modelMapper.addConverter(EmployeeEntity2EmployeeConverter, EmployeeEntity.class, Employee.class);
+		modelMapper.addConverter(Employee2EmployeeDocumentConverter, Employee.class, EmployeeDocument.class);
+		modelMapper.addConverter(EmployeeDocument2EmployeeConverter, EmployeeDocument.class, Employee.class);
 		modelMapper.addConverter(Employee2EmployeeQLResponseConverter, Employee.class, EmployeeQLResponse.class);
 		return modelMapper;
 	}

@@ -1,5 +1,6 @@
 package com.example.hr.controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +45,7 @@ public class HrRestController {
 	}
 
 	@DeleteMapping(value = "{identityNo}")
+	@Transactional
 	public EmployeeResponse fireEmployee(@PathVariable @Validated String identityNo) {
 		return hrService.fireEmployee(identityNo);
 	}

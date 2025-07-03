@@ -2,9 +2,6 @@ package com.example.hr.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.hr.application.HrApplication;
 import com.example.hr.domain.Employee;
@@ -30,14 +27,14 @@ public class HrService {
 		return modelMapper.map(employee, EmployeeResponse.class);
 	}
 
-	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
+	//@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.MANDATORY)
 	public HireEmployeeResponse hireEmployee(HireEmployeeRequest request) {
 		var employee = modelMapper.map(request, Employee.class);
 		var hiredEmployee = hrApplication.hireEmployee(employee);
 		return modelMapper.map(hiredEmployee, HireEmployeeResponse.class);
 	}
 
-	@Transactional
+	// @Transactional(propagation = Propagation.NEVER)
 	public EmployeeResponse fireEmployee(String identityNo) {
 		var firedEmployee = hrApplication.fireEmployee(TcKimlikNo.valueOf(identityNo))
 				.orElseThrow(() -> new IllegalArgumentException("Cannot find employee to fire: %s".formatted(identityNo)));
