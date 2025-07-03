@@ -1,7 +1,6 @@
 package com.example;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Exercise01 {
