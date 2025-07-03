@@ -2,6 +2,8 @@ package com.example.hr.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.hr.application.HrApplication;
@@ -28,7 +30,7 @@ public class HrService {
 		return modelMapper.map(employee, EmployeeResponse.class);
 	}
 
-	@Transactional
+	@Transactional(isolation = Isolation.REPEATABLE_READ, propagation = Propagation.REQUIRED)
 	public HireEmployeeResponse hireEmployee(HireEmployeeRequest request) {
 		var employee = modelMapper.map(request, Employee.class);
 		var hiredEmployee = hrApplication.hireEmployee(employee);
