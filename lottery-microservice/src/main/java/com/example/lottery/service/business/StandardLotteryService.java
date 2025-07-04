@@ -27,7 +27,7 @@ public class StandardLotteryService implements LotteryService {
 	@Override
 	public List<LotteryNumbers> draw(int column) {
 		return IntStream.range(0, column)
-				        .mapToObj(_ -> draw())
+				        .mapToObj(i -> draw())
 				        .toList();
 	}
 
